@@ -8,10 +8,15 @@ import { AppComponent } from './app.component';
 import { PlanModule } from './plan/plan.module';
 import { OptionModule } from './option/option.module';
 import { AppRoutingModule } from './app.routing';
+import { PagerService } from './_services/index';
+import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +26,9 @@ import { AppRoutingModule } from './app.routing';
     OptionModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    PagerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,15 @@
-<h1>
-  {{title}}
-</h1>
-<router-outlet></router-outlet>
+<app-header></app-header>
+<div class="main-container">
+	<!-- /section:basics/sidebar -->
+	<div class="sidebar responsive" id="sidebar">
+		<app-sidebar></app-sidebar>
+	</div> 
+	<!-- /section:basics/sidebar -->
+	<div class="main-content">
+		<div class="main-content-inner">
+			<router-outlet></router-outlet>
+		</div>
+	</div><!-- /.main-content -->
+	<div class="footer">
+	</div>
+</div>
