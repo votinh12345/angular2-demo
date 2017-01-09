@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http } from "@angular/http";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 import { PagerService } from '../../_services/index';
 import { params } from '../../config/params';
+import { DataTableModule } from "angular2-datatable";
+import { DataFilterPipe }   from '../../data-filter.pipe';
 
 @Component({
   selector: 'app-plan-list',
@@ -13,35 +15,28 @@ import { params } from '../../config/params';
 })
 export class PlanListComponent implements OnInit {
 
-  constructor(private http: Http, private pagerService: PagerService) { }
+  constructor(private http: Http) { }
 
-  private allItems: any[];
-	    // pager object
-	    pager: any = {};
+  public data;
+  public filterQuery = "";
+  public rowsOnPage = 10;
+  public sortBy = "email";
+  public sortOrder = "asc";
 
-	    // paged items
-	    pagedItems: any[];
+  ngOnInit(): void {
+      this.http.get(params.url + 'api/plan')
+          .subscribe((data)=> {
+              setTimeout(()=> {
+                  this.data = data.json();
+              }, 1000);
+          });
+  }
 
-  	ngOnInit() {
-  		this.http.get(params.url + 'api/plan')
-            .map((response: Response) => response.json())
-            .subscribe(data => {
-                // set items to json response
-                this.allItems = data;
-                // initialize to page 1
-                this.setPage(1);
-            });
-    }
+  public toInt(num: string) {
+      return +num;
+  }
 
-    setPage(page: number) {
-        if (page < 1 || page > this.pager.totalPages) {
-            return;
-        }
-        // get pager object from service
-        this.pager = this.pagerService.getPager(this.allItems.length, page);
-        // get current page of items
-        this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    }
-
-  	
+  public sortByWordLength = (a: any) => {
+      return a.city.length;
+  }
 }
