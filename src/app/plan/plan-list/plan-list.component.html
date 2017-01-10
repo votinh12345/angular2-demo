@@ -58,15 +58,15 @@
                                 <td>{{item.plan_last_upd_date}}</td>
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="#">
+                                        <a class="blue" href="javascript:void(0)" (click)="open($event, item.plan_code)">
                                             <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         </a>
 
-                                        <a class="green" href="#">
+                                        <a class="green" href="javascript:void(0)" (click)="modal.open()">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
 
-                                        <a class="red" href="#">
+                                        <a class="red" href="javascript:void(0)" (click)="modal.open()">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
                                     </div>
@@ -122,3 +122,21 @@
         </div>
     </div>
 </div>
+
+
+<modal  #modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass" #navigateModal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">I'm a modal!</h4>
+    </modal-header>
+    <modal-body>
+        <ul>
+            <li *ngFor="let item of items">
+                <a href="#">{{ item }}</a>
+            </li>
+        </ul>
+    </modal-body>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="navigateModal.dismiss()">Close</button>
+        <button type="button" class="btn btn-primary" autofocus (click)="navigateModal.close()">Go</button>
+    </modal-footer>
+</modal>
