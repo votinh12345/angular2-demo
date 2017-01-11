@@ -62,11 +62,11 @@
                                             <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         </a>
 
-                                        <a class="green" href="javascript:void(0)" (click)="openEdit($event, item.plan_code)">
+                                        <a class="green" href="javascript:void(0)" (click)="edit($event, item.plan_code)">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
 
-                                        <a class="red" href="javascript:void(0)" (click)="openDelete($event, item.plan_code)">
+                                        <a class="red" href="javascript:void(0)" (click)="validationModal.open()">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
                                     </div>
@@ -207,14 +207,46 @@
     </modal-footer>
 </modal>
 
-<modal  #modalSave [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass" #modalSave>
-    <modal-header [show-close]="true">
-        <h4 class="modal-title">12121212</h4>
-    </modal-header>
-    <modal-body>
-       
-    </modal-body>
-    <modal-footer>
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalSave.dismiss()">Cancer</button>
-    </modal-footer>
+<modal #parentModal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+    (onOpen)="opened()" [cssClass]="cssClass">
+    <form #modalForm="ngForm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{titleDetail}}</h4>
+        </modal-header>
+        <modal-body>
+                <div class="form-group">
+                    <label for="firstName">プランID </label>
+                    <input type="text" class="form-control" required [(ngModel)]="modelPlan.plan_code" name="firstName" id="firstName">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">プラン名 </label>
+                    <input type="text" class="form-control" required [(ngModel)]="modelPlan.plan_name" name="lastName" id="lastName">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">プラン名 </label>
+                    <input type="text" class="form-control" required [(ngModel)]="modelPlan.plan_name" name="lastName" id="lastName">
+                </div>
+
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="parentModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="parentModal.close()">Ok</button>
+        </modal-footer>
+    </form>
+</modal>
+
+<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+    (onOpen)="opened()" [cssClass]="cssClass" #validationModal>
+    <form #modalForm="ngForm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">I'm a modal!</h4>
+        </modal-header>
+        <modal-body>
+            
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="validationModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" [disabled]="!modalForm.valid" (click)="validationModal.close()">Save</button>
+        </modal-footer>
+    </form>
 </modal>

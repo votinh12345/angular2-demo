@@ -39,8 +39,10 @@ export class PlanListComponent implements OnInit {
   planDetail : Array<PlanMst>;
   titleDetail : string;
 
-  @ViewChild('modalSave')
+  @ViewChild('parentModal')
   modal1: ModalComponent;
+
+  modelPlan = new PlanMst('','','','','','','','','','');
 
   constructor(private http: Http, private router: Router) {
     this.planDetail = [];
@@ -96,10 +98,37 @@ export class PlanListComponent implements OnInit {
                       let plan = new PlanMst(dataResponse.plan_code, dataResponse.plan_name, dataResponse.plan_desc,
                        dataResponse.plan_class, dataResponse.plan_initial_dis, dataResponse.plan_start_date, dataResponse.plan_end_date,
                        dataResponse.plan_type, dataResponse.plan_last_upd_user, dataResponse.plan_last_upd_date);
-
+                      if (this.planDetail.length > 0){
+                        this.planDetail.splice(0, 1);
+                      }
                       this.planDetail.push(plan);
                       this.titleDetail = 'プラン詳細';
                       this.modal.open();  
+                    } else {
+                      alert(response.json().message);  
+                    }
+                },
+                error => {
+                    alert(error.text());
+                    console.log(error.text());
+                }
+          );
+  }
+
+  public edit(event, plan_code){
+    event.preventDefault();
+     this.http.get(params.url + 'api/plan/detail/' + plan_code)
+          .subscribe(
+            response => {
+                  //khoi tao data
+                    let dataResponse = response.json().data;
+                    if (response.json().result === 1) {
+                      let plan = new PlanMst(dataResponse.plan_code, dataResponse.plan_name, dataResponse.plan_desc,
+                       dataResponse.plan_class, dataResponse.plan_initial_dis, dataResponse.plan_start_date, dataResponse.plan_end_date,
+                       dataResponse.plan_type, dataResponse.plan_last_upd_user, dataResponse.plan_last_upd_date);
+                      this.modelPlan = plan;
+                      this.titleDetail = 'プラン詳細';
+                      this.modal1.open(); 
                     } else {
                       alert(response.json().message);  
                     }
