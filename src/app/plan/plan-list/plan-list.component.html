@@ -58,15 +58,15 @@
                                 <td>{{item.plan_last_upd_date}}</td>
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="javascript:void(0)" (click)="open($event, item.plan_code)">
+                                        <a class="blue" href="javascript:void(0)" (click)="openDetail($event, item.plan_code)">
                                             <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         </a>
 
-                                        <a class="green" href="javascript:void(0)" (click)="modal.open()">
+                                        <a class="green" href="javascript:void(0)" (click)="openEdit($event, item.plan_code)">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
 
-                                        <a class="red" href="javascript:void(0)" (click)="modal.open()">
+                                        <a class="red" href="javascript:void(0)" (click)="openDelete($event, item.plan_code)">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
                                     </div>
@@ -79,7 +79,7 @@
 
                                             <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                                 <li>
-                                                    <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                                                    <a href="javascript:void(0)" class="tooltip-info" data-rel="tooltip" title="View" (click)="openDetail($event, item.plan_code)">
                                                         <span class="blue">
                                                             <i class="ace-icon fa fa-search-plus bigger-120"></i>
                                                         </span>
@@ -87,7 +87,7 @@
                                                 </li>
 
                                                 <li>
-                                                    <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                                    <a href="javascript:void(0)" class="tooltip-success" data-rel="tooltip" title="Edit">
                                                         <span class="green">
                                                             <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                                         </span>
@@ -95,7 +95,7 @@
                                                 </li>
 
                                                 <li>
-                                                    <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                                    <a href="javascript:void(0)" class="tooltip-error" data-rel="tooltip" title="Delete">
                                                         <span class="red">
                                                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                         </span>
@@ -124,19 +124,97 @@
 </div>
 
 
-<modal  #modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass" #navigateModal>
+<modal  #modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass">
     <modal-header [show-close]="true">
-        <h4 class="modal-title">I'm a modal!</h4>
+        <h4 class="modal-title">{{titleDetail}}</h4>
     </modal-header>
-    <modal-body>
-        <ul>
-            <li *ngFor="let item of items">
-                <a href="#">{{ item }}</a>
-            </li>
-        </ul>
+    <modal-body *ngFor="let item of planDetail">
+        <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+                <div class="profile-info-name"> プランID </div>
+                <div class="profile-info-value">
+                    <span class="editable" id="username">{{ item.plan_code}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> プラン名 </div>
+                <div class="profile-info-value">
+                    <span class="editable" id="country">{{ item.plan_name}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> プラン説明 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="age">{{ item.plan_desc}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> プラン区分 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="signup">{{ item.plan_class}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 初回値引金額 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="login">{{ item.plan_initial_dis}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> プラン表示開始日 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.plan_start_date}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> プラン表示終了日 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.plan_end_date}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 最終更新者 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.plan_last_upd_user}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 最終更新日時 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.plan_last_upd_date}}</span>
+                </div>
+            </div>
+
+        </div>
     </modal-body>
     <modal-footer>
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="navigateModal.dismiss()">Close</button>
-        <button type="button" class="btn btn-primary" autofocus (click)="navigateModal.close()">Go</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="navigateModal.dismiss()">Cancer</button>
+    </modal-footer>
+</modal>
+
+<modal  #modalSave [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass" #modalSave>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">12121212</h4>
+    </modal-header>
+    <modal-body>
+       
+    </modal-body>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalSave.dismiss()">Cancer</button>
     </modal-footer>
 </modal>
