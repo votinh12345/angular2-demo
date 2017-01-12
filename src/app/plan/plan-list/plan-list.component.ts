@@ -1,5 +1,5 @@
 import { Component, OnInit , ViewChild, ViewEncapsulation} from '@angular/core';
-import { Http } from "@angular/http";
+import { Http, Headers } from "@angular/http";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
@@ -42,7 +42,11 @@ export class PlanListComponent implements OnInit {
   @ViewChild('parentModal')
   modal1: ModalComponent;
 
+  @ViewChild('modelDelete')
+  modal2: ModalComponent;
+
   modelPlan = new PlanMst('','','','','','','','','','');
+  private planCode : string;
 
   constructor(private http: Http, private router: Router) {
     this.planDetail = [];
@@ -138,6 +142,43 @@ export class PlanListComponent implements OnInit {
                     console.log(error.text());
                 }
           );
+  }
+
+  public add(event){
+    event.preventDefault();
+    this.modal1.open();
+  }
+
+  public delete(event, plan_code){
+    event.preventDefault();
+    this.titleDetail = '削除確認';
+    this.planCode = plan_code;
+    this.modal2.open(); 
+  }
+
+  public submit(event){
+    event.preventDefault();
+    var body = 'dataPost=' + this.planCode;
+    var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+    this.http.post(params.url + 'api/plan/delete', body, {headers : headers})
+            .subscribe(
+                response => {
+                    
+                    this.http.get(params.url + 'api/plan')
+                      .subscribe((data)=> {
+                          setTimeout(()=> {
+                              this.data = data.json();
+                          }, 1000);
+                      });
+                    this.modal2.close();
+                },
+                error => {
+                    alert(error.text());
+                    console.log(error.text());
+                }
+            );
   }
 
 }

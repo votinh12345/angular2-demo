@@ -1,3 +1,7 @@
 .table > thead > tr.custom{
 	background: transparent;
 }
+form.custom-form div.form-group{
+	display: inline-block;
+	width: 100%;
+}
