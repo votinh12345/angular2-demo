@@ -12,6 +12,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Router } from '@angular/router';
 
 import { PlanMst } from '../../common/models/plan-mst';
+import { PlanClass } from '../../common/const/plan_class';
 
 @Component({
   selector: 'app-plan-list',
@@ -47,6 +48,12 @@ export class PlanListComponent implements OnInit {
 
   modelPlan = new PlanMst('','','','','','','','','','');
   private planCode : string;
+
+  planClass = [
+     new PlanClass(0, '新規' ),
+     new PlanClass(1, 'MNP' ),
+     new PlanClass(2, '共用' )
+  ];
 
   constructor(private http: Http, private router: Router) {
     this.planDetail = [];
@@ -146,6 +153,7 @@ export class PlanListComponent implements OnInit {
 
   public add(event){
     event.preventDefault();
+    this.modelPlan = new PlanMst('','','','','','','','','','');
     this.modal1.open();
   }
 
@@ -165,7 +173,6 @@ export class PlanListComponent implements OnInit {
     this.http.post(params.url + 'api/plan/delete', body, {headers : headers})
             .subscribe(
                 response => {
-                    
                     this.http.get(params.url + 'api/plan')
                       .subscribe((data)=> {
                           setTimeout(()=> {

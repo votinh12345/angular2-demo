@@ -1,3 +1,134 @@
-<p>
-  option-list works!
-</p>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="hr hr-18 dotted hr-double"></div>
+        <h4 class="pink">
+            <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+            <a href="#modal-table" role="button" class="green" data-toggle="modal">プランマスタ管理</a>
+        </h4>
+        <div class="hr hr-18 dotted hr-double"></div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-primary">
+                    <i class="ace-icon fa fa-check"></i>
+                    新規プラン追加
+                </button>
+                <h3 class="header smaller lighter blue">Plan List</h3>
+                <div class="clearfix">
+                    <div class="pull-right tableTools-container"></div>
+                </div>
+                <div>
+                    <table id="dynamic-table" class="table table-striped table-bordered table-hover" class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                        <thead>
+                            <tr class="custom">
+                                <th colspan="9">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">オプション名</label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" id="form-field-1" class="col-xs-10 col-sm-10" [(ngModel)]="filterQuery"/>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                <th><mfDefaultSorter by="opt_packcode">パックID</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="opt_packname">	パック名</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="opt_code">オプションID</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="opt_name">オプション名</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="opt_class">オプション名</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="last_upd_user">最終更新者</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="last_upd_date">最終更新日時</mfDefaultSorter></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of mf.data">
+                                <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td>
+                                <td>{{item.opt_packcode}}</td>
+                                <td>{{item.opt_packname}}</td>
+                                <td>{{item.opt_code}}</td>
+                                <td>{{item.opt_name}}</td>
+                                <td>{{item.opt_class}}</td>
+                                <td>{{item.last_upd_user}}</td>
+                                <td>{{item.last_upd_date}}</td>
+                                <td>
+                                    <div class="hidden-sm hidden-xs action-buttons">
+                                        <a class="blue" href="javascript:void(0)">
+                                            <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                                        </a>
+
+                                        <a class="green" href="javascript:void(0)">
+                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                        </a>
+
+                                        <a class="red" href="javascript:void(0)">
+                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="hidden-md hidden-lg">
+                                        <div class="inline pos-rel">
+                                            <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                                <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+                                            </button>
+
+                                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                                <li>
+                                                    <a href="javascript:void(0)" class="tooltip-info" data-rel="tooltip" title="View">
+                                                        <span class="blue">
+                                                            <i class="ace-icon fa fa-search-plus bigger-120"></i>
+                                                        </span>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="javascript:void(0)" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                                        <span class="green">
+                                                            <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                        </span>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="javascript:void(0)" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                                        <span class="red">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="9">
+                                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
