@@ -13,7 +13,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @NgModule(
 	{
-		imports : [BrowserModule, FormsModule, CommonModule, OptionsRoutingModule, DataTableModule],
+		imports : [BrowserModule, FormsModule, CommonModule, OptionsRoutingModule, DataTableModule, Ng2Bs3ModalModule],
 		declarations: [OptionListComponent, DataFilterPipe]
 	}
 )

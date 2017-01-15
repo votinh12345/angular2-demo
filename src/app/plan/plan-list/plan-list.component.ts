@@ -1,7 +1,7 @@
 import { Component, OnInit , ViewChild, ViewEncapsulation} from '@angular/core';
 import { Http, Headers } from "@angular/http";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 import { PagerService } from '../../_services/index';
 import { params } from '../../config/params';
@@ -59,11 +59,11 @@ export class PlanListComponent implements OnInit {
     this.planDetail = [];
   }
 
-  public data;
-  public filterQuery = "";
-  public rowsOnPage = 10;
-  public sortBy = "email";
-  public sortOrder = "asc";
+  private data;
+  private filterQuery = "";
+  private rowsOnPage = 10;
+  private sortBy = "plan_code";
+  private sortOrder = "asc";
 
   ngOnInit(): void {
       this.http.get(params.url + 'api/plan')

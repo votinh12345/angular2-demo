@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing';
 import { PagerService } from './_services/index';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ProductModule } from './product/product.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HttpModule,
     PlanModule,
     OptionModule,
+    ProductModule,
     AppRoutingModule
   ],
   providers: [

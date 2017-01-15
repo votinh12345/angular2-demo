@@ -3,22 +3,22 @@
         <div class="hr hr-18 dotted hr-double"></div>
         <h4 class="pink">
             <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-            <a href="#modal-table" role="button" class="green" data-toggle="modal">プランマスタ管理</a>
+            <a href="#modal-table" role="button" class="green" data-toggle="modal">新規商品追加</a>
         </h4>
         <div class="hr hr-18 dotted hr-double"></div>
 
         <div class="row">
             <div class="col-xs-12">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" (click)="add($event)">
                     <i class="ace-icon fa fa-check"></i>
                     新規プラン追加
                 </button>
-                <h3 class="header smaller lighter blue">Plan List</h3>
+                <h3 class="header smaller lighter blue">検索条件</h3>
                 <div class="clearfix">
                     <div class="pull-right tableTools-container"></div>
                 </div>
                 <div>
-                    <table id="dynamic-table" class="table table-striped table-bordered table-hover" class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+                    <table id="dynamic-table" class="table table-striped table-bordered table-hover" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
                    [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
                         <thead>
                             <tr class="custom">
@@ -66,15 +66,15 @@
                                 <td>{{item.last_upd_date}}</td>
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="javascript:void(0)">
+                                        <a class="blue" href="javascript:void(0)" (click)="openDetail($event, item.opt_packcode, item.opt_code)">
                                             <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         </a>
 
-                                        <a class="green" href="javascript:void(0)">
+                                        <a class="green" href="javascript:void(0)" (click)="edit($event, item.opt_packcode, item.opt_code)">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
 
-                                        <a class="red" href="javascript:void(0)">
+                                        <a class="red" href="javascript:void(0)" (click)="delete($event, item.opt_packcode, item.opt_code)">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
                                     </div>
@@ -132,3 +132,206 @@
 </div>
 
 
+<modal  #modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">{{titleDetail}}</h4>
+    </modal-header>
+    <modal-body *ngFor="let item of optionDetail">
+        <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+                <div class="profile-info-name"> パックID </div>
+                <div class="profile-info-value">
+                    <span class="editable" id="username">{{ item.opt_packcode}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> パック名称 </div>
+                <div class="profile-info-value">
+                    <span class="editable" id="country">{{ item.opt_packname}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> パック説明 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="age">{{ item.opt_packdesc}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> オプションID </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="signup">{{ item.opt_code}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> オプション名称 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="login">{{ item.opt_name}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> オプション説明 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.opt_desc}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> オプション区分 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.opt_class}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> オプション表示開始日 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.opt_start_date}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> オプション表示終了日 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.opt_end_date}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 最終更新者 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.last_upd_user}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 最終更新日時 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.last_upd_date}}</span>
+                </div>
+            </div>
+
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="navigateModal.dismiss()">Cancer</button>
+    </modal-footer>
+</modal>
+
+<modal #parentModal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
+    (onOpen)="opened()" [cssClass]="cssClass">
+    <form #modalForm="ngForm" class="custom-form">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{titleDetail}}</h4>
+        </modal-header>
+        <modal-body>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_packcode"> パックID </label>
+
+                    <div class="col-sm-9 input-group">
+                        <input type="text" required [(ngModel)]="modelOption.opt_packcode" name="opt_packcode" id="opt_packcode" placeholder="" class="col-xs-10 col-sm-10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_packname"> パック名称 </label>
+
+                    <div class="col-sm-9 input-group">
+                        <input type="text" required [(ngModel)]="modelOption.opt_packname" name="opt_packname" id="opt_packname" placeholder="" class="col-xs-10 col-sm-10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_packdesc"> パック説明 </label>
+
+                    <div class="col-sm-9 input-group">
+                        <textarea class="col-xs-10 col-sm-10" [(ngModel)]="modelOption.opt_packdesc"  name="opt_packdesc" id="opt_packdesc" maxlength="50"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_code"> オプションID </label>
+
+                    <div class="col-sm-9 input-group">
+                        <input type="text" class="col-xs-10 col-sm-10" [(ngModel)]="modelOption.opt_code"  name="opt_code" id="opt_code">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_name"> オプション名称 </label>
+
+                    <div class="col-sm-9 input-group">
+                        <input type="text" required [(ngModel)]="modelOption.opt_name" name="opt_name" id="opt_name" placeholder="" class="col-xs-10 col-sm-10">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_desc"> オプション説明 </label>
+
+                    <div class="col-sm-9 input-group">
+                        <textarea  required [(ngModel)]="modelOption.opt_desc" name="opt_desc" id="opt_desc" placeholder="" class="col-xs-10 col-sm-10" maxlength="50"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_class"> オプション区分 </label>
+
+                    <div class="col-sm-9 input-group">
+                        <input type="text" required [(ngModel)]="modelOption.opt_class" name="opt_class" id="opt_class" placeholder="" class="col-xs-10 col-sm-10">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_start_date"> 開始日： </label>
+
+                    <div class="col-sm-3 input-group">
+                        <input class="col-xs-10 col-sm-12 date-picker" [(ngModel)]="modelOption.opt_start_date" id="opt_start_date" name="opt_start_date" type="text" data-date-format="dd-mm-yyyy" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar bigger-110"></i>
+                        </span>
+                    </div>
+
+                    <label class="col-sm-3 control-label no-padding-right" for="opt_end_date"> 終了日： </label>
+
+                    <div class="col-sm-3 input-group">
+                        <input class="col-xs-10 col-sm-12 date-picker" [(ngModel)]="modelOption.opt_end_date" id="opt_end_date" name="opt_end_date" type="text" data-date-format="dd-mm-yyyy" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar bigger-110"></i>
+                        </span>
+                    </div>
+
+                </div>
+
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="parentModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="parentModal.close()">Ok</button>
+        </modal-footer>
+    </form>
+</modal>
+
+<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()" (onOpen)="opened()" [cssClass]="cssClass" #modelDelete>
+    <form>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{titleDetail}}</h4>
+        </modal-header>
+        <modal-body>
+            <p>選択したデータを削除しますが、よろしいですか？</p>
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-primary" id="delete" (click)="submit($event)">Ok</button> 
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modelDelete.dismiss()">Cancel</button>            
+        </modal-footer>
+    </form>
+</modal>
