@@ -58,6 +58,17 @@ export class ProductListComponent implements OnInit {
           });
   }
 
+  public closed() {
+      this.output = '(closed) ' + this.selected;
+  }
+
+  public  dismissed() {
+      this.output = '(dismissed)';
+  }
+
+  public opened() {
+      this.output = '(opened)';
+  }
 
   public openDetail(event, goods_jan) {
     event.preventDefault();

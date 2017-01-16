@@ -8,7 +8,7 @@
 		<b class="arrow"></b>
 	</li>
 
-	<li class="">
+	<li [ngClass]="getCSSClasses(['plan', 'option', 'product'])">
 		<a href="javascript:void(0)" class="dropdown-toggle">
 			<i class="menu-icon fa fa-desktop"></i>
 			<span class="menu-text">
@@ -22,28 +22,22 @@
 		<ul class="submenu">
 			<li class="">
 				<a class="dropdown-toggle" routerLink="/plan">
-					<i class="menu-icon fa fa-caret-right"></i>
-						Plan
-					<b class="arrow fa fa-angle-down"></b>
+					<i class="menu-icon fa fa-caret-right"></i>Plan
 				</a>
 				<b class="arrow"></b>				
 			</li>
 
 			<li class="">
 				<a routerLink="option">
-					<i class="menu-icon fa fa-caret-right"></i>
-					Option
+					<i class="menu-icon fa fa-caret-right"></i>Option
 				</a>
-
 				<b class="arrow"></b>
 			</li>
 
 			<li class="">
 				<a routerLink="product">
-					<i class="menu-icon fa fa-caret-right"></i>
-					Product
+					<i class="menu-icon fa fa-caret-right"></i>Product
 				</a>
-
 				<b class="arrow"></b>
 			</li>
 		</ul>
