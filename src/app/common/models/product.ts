@@ -15,7 +15,7 @@ export class Product {
 
     constructor(goods_jan = null, goods_name = null, goods_name2 = null, goods_model_id = null, goods_sim_type = null,
      goods_sim_class = null, goods_color = null, goods_size = null, goods_maker = null, goods_decr = null,
-     last_upd_date = null, plan_name = null, option = null){
+     last_upd_date = null, plan_name = null, option_name = null){
         this.goods_jan = goods_jan;
         this.goods_name = goods_name;
         this.goods_name2 = goods_name2;
@@ -28,6 +28,6 @@ export class Product {
         this.goods_decr = goods_decr;
         this.last_upd_date = last_upd_date;
         this.plan_name = plan_name;
-        this.option = option;
+        this.option_name = option_name;
     }
 }

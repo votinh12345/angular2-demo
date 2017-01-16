@@ -124,3 +124,105 @@
         </div>
     </div>
 </div>
+
+
+<modal  #modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="navigate()" (onOpen)="opened()" [cssClass]="cssClass">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">{{titleDetail}}</h4>
+    </modal-header>
+    <modal-body *ngFor="let item of productDetail">
+        <strong>商品名 ：</strong> <span>{{ item.goods_name}}</span>
+        <div class="profile-user-info profile-user-info-striped">
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> JANコード </div>
+                <div class="profile-info-value">
+                    <span class="editable" id="username">{{ item.goods_jan}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 商品名２ </div>
+                <div class="profile-info-value">
+                    <span class="editable" id="country">{{ item.goods_name2}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 機種ID </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="age">{{ item.goods_model_id}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> SIMタイプ </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="signup">{{ item.goods_sim_type}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> SIM契約種別 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="login">{{ item.goods_sim_class}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> カラー </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.goods_color}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> サイズ </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.goods_size}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> メーカー名 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.goods_decr}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 最終更新者 </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about">{{ item.last_upd_date}}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> プラン </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about" [innerHTML]="item.plan_name"></span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> オプション </div>
+
+                <div class="profile-info-value">
+                    <span class="editable" id="about" [innerHTML]="item.option_name"></span>
+                </div>
+            </div>
+
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="navigateModal.dismiss()">Cancer</button>
+    </modal-footer>
+</modal>

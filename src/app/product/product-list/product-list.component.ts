@@ -67,13 +67,13 @@ export class ProductListComponent implements OnInit {
                   //khoi tao data
                     let dataResponse = response.json().data;
                     if (response.json().result === 1) {
-                      let plan = new OptionMst(dataResponse.opt_packcode, dataResponse.opt_packname, dataResponse.opt_packdesc,
-                       dataResponse.opt_code, dataResponse.opt_name, dataResponse.opt_desc, dataResponse.opt_flag,
-                       dataResponse.opt_class, dataResponse.opt_start_date, dataResponse.opt_end_date, dataResponse.last_upd_user, dataResponse.last_upd_date);
+                      let product = new Product(dataResponse.goods_jan, dataResponse.goods_name, dataResponse.goods_name2,
+                       dataResponse.goods_model_id, dataResponse.goods_sim_type, dataResponse.goods_sim_class, dataResponse.goods_color,
+                       dataResponse.goods_size, dataResponse.goods_maker, dataResponse.goods_decr, dataResponse.last_upd_date, dataResponse.plan_name, dataResponse.option_name);
                       if (this.productDetail.length > 0){
                         this.productDetail.splice(0, 1);
                       }
-                      this.productDetail.push(plan);
+                      this.productDetail.push(product);
                       this.titleDetail = '商品情報詳細';
                       this.modal.open();  
                     } else {
