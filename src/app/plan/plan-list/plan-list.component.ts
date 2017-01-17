@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 import { PlanMst } from '../../common/models/plan-mst';
 import { PlanClass } from '../../common/const/plan_class';
 
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-plan-list',
   templateUrl: './plan-list.component.html',
@@ -21,6 +23,8 @@ import { PlanClass } from '../../common/const/plan_class';
   encapsulation: ViewEncapsulation.None
 })
 export class PlanListComponent implements OnInit {
+
+  public planForm : FormGroup;
 
   @ViewChild('modal')
   modal: ModalComponent;
@@ -46,7 +50,7 @@ export class PlanListComponent implements OnInit {
   @ViewChild('modelDelete')
   modal2: ModalComponent;
 
-  modelPlan = new PlanMst('','','','','','','','','','');
+  modelPlan = new PlanMst();
   private planCode : string;
 
   planClass = [
@@ -55,8 +59,29 @@ export class PlanListComponent implements OnInit {
      new PlanClass(2, '共用' )
   ];
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router, private fb:FormBuilder) {
     this.planDetail = [];
+    this.planForm = this.fb.group({
+            plan_code: ['', [<any>Validators.required, <any>Validators.maxLength(10), this.number]],
+            plan_name : ['', Validators.required],
+            plan_desc : [],
+            plan_class : [],
+            plan_initial_dis : [],
+            plan_start_date : [],
+            plan_end_date : []
+        });
+    
+  }
+
+  number(control:FormControl) {
+      return parseInt(control.value) % 10 == 0 ? null : {
+        divisibleByTen: true
+      }
+  }
+  
+  submitForm(value: any){
+    console.log(value);
+    return false;
   }
 
   private data;
@@ -153,7 +178,8 @@ export class PlanListComponent implements OnInit {
 
   public add(event){
     event.preventDefault();
-    this.modelPlan = new PlanMst('','','','','','','','','','');
+    this.modelPlan = new PlanMst();
+    this.titleDetail = '新規プラン追加';
     this.modal1.open();
   }
 

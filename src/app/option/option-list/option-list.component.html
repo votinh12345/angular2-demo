@@ -231,8 +231,7 @@
     </modal-footer>
 </modal>
 
-<modal #parentModal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
-    (onOpen)="opened()" [cssClass]="cssClass">
+<modal #parentModal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()" (onOpen)="opened()" [cssClass]="cssClass">
     <form #modalForm="ngForm" class="custom-form">
         <modal-header [show-close]="true">
             <h4 class="modal-title">{{titleDetail}}</h4>

@@ -211,7 +211,8 @@
 
 <modal #parentModal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="closed()" (onDismiss)="dismissed()"
     (onOpen)="opened()" [cssClass]="cssClass">
-    <form #modalForm="ngForm" class="custom-form">
+
+    <form  class="custom-form" [formGroup]="planForm" (ngSubmit)="save(planForm.value, planForm.valid)">
         <modal-header [show-close]="true">
             <h4 class="modal-title">{{titleDetail}}</h4>
         </modal-header>
@@ -220,28 +221,29 @@
                     <label class="col-sm-3 control-label no-padding-right" for="plan_code"> プランID </label>
 
                     <div class="col-sm-9 input-group">
-                        <input type="text" required [(ngModel)]="modelPlan.plan_code" name="plan_code" id="plan_code" placeholder="" class="col-xs-10 col-sm-10">
+                        <input type="text" formControlName="plan_code" [(ngModel)]="modelPlan.plan_code" name="plan_code" id="plan_code" placeholder="" class="col-xs-10 col-sm-10">
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="plan_name"> プラン名 </label>
 
                     <div class="col-sm-9 input-group">
-                        <input type="text" required [(ngModel)]="modelPlan.plan_name" name="plan_name" id="plan_name" placeholder="" class="col-xs-10 col-sm-10">
+                        <input type="text" formControlName="plan_name" [(ngModel)]="modelPlan.plan_name" name="plan_name" id="plan_name" placeholder="" class="col-xs-10 col-sm-10">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="plan_desc"> プラン説明 </label>
 
                     <div class="col-sm-9 input-group">
-                        <textarea class="col-xs-10 col-sm-10" [(ngModel)]="modelPlan.plan_desc"  name="plan_desc" id="plan_desc" maxlength="50"></textarea>
+                        <textarea formControlName="plan_desc" class="col-xs-10 col-sm-10" [(ngModel)]="modelPlan.plan_desc"  name="plan_desc" id="plan_desc" maxlength="50"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="plan_class"> プラン区分 </label>
 
                     <div class="col-sm-9 input-group">
-                        <select [(ngModel)]="modelPlan.plan_class" name="plan_class" id="plan_class">
+                        <select [(ngModel)]="modelPlan.plan_class" name="plan_class" id="plan_class" formControlName="plan_class">
                           <option *ngFor="let itemclass of planClass" value= {{itemclass.id}}>
                             {{itemclass.name}}
                           </option>
@@ -252,14 +254,14 @@
                     <label class="col-sm-3 control-label no-padding-right" for="plan_initial_dis"> 初回値引金額 </label>
 
                     <div class="col-sm-9 input-group">
-                        <input type="text" required [(ngModel)]="modelPlan.plan_initial_dis" name="plan_initial_dis" id="plan_initial_dis" placeholder="" class="col-xs-10 col-sm-10">
+                        <input type="text" formControlName="plan_initial_dis" [(ngModel)]="modelPlan.plan_initial_dis" name="plan_initial_dis" id="plan_initial_dis" placeholder="" class="col-xs-10 col-sm-10">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="plan_start_date"> プラン表示開始日 </label>
 
                     <div class="col-sm-6 input-group">
-                        <input class="col-xs-10 col-sm-12 date-picker" [(ngModel)]="modelPlan.plan_start_date" id="plan_start_date" name="plan_start_date" type="text" data-date-format="dd-mm-yyyy" />
+                        <input class="col-xs-10 col-sm-12 date-picker" formControlName="plan_start_date" [(ngModel)]="modelPlan.plan_start_date" id="plan_start_date" name="plan_start_date" type="text" data-date-format="dd-mm-yyyy" />
                         <span class="input-group-addon">
                             <i class="fa fa-calendar bigger-110"></i>
                         </span>
@@ -268,29 +270,18 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="plan_end_date"> プラン表示終了日 </label>
 
-                    <div class="col-sm-9 input-group">
-                        <input type="text" required [(ngModel)]="modelPlan.plan_end_date" name="plan_end_date" id="plan_end_date" placeholder="" class="col-xs-10 col-sm-10">
+                    <div class="col-sm-6 input-group">
+                        <input class="col-xs-10 col-sm-12 date-picker" formControlName="plan_end_date" [(ngModel)]="modelPlan.plan_end_date" id="plan_end_date" name="plan_end_date" type="text" data-date-format="dd-mm-yyyy" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar bigger-110"></i>
+                        </span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="plan_last_upd_user"> 最終更新者 </label>
-
-                    <div class="col-sm-9 input-group">
-                        <input type="text" required [(ngModel)]="modelPlan.plan_last_upd_user" name="plan_last_upd_user" id="plan_last_upd_user" placeholder="" class="col-xs-10 col-sm-10">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="plan_last_upd_date"> 最終更新日時 </label>
-
-                    <div class="col-sm-9 input-group">
-                        <input type="text" required [(ngModel)]="modelPlan.plan_last_upd_date" name="plan_last_upd_date" id="plan_last_upd_date" placeholder="" class="col-xs-10 col-sm-10">
-                    </div>
-                </div>
-
+                
         </modal-body>
         <modal-footer>
             <button type="button" class="btn btn-default" data-dismiss="modal" (click)="parentModal.dismiss()">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="parentModal.close()">Ok</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!planForm.valid">Ok</button>
         </modal-footer>
     </form>
 </modal>

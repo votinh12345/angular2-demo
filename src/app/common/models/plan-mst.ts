@@ -1,3 +1,4 @@
+
 export class PlanMst {
     plan_code: string;
     plan_name: string;
@@ -10,8 +11,8 @@ export class PlanMst {
     plan_last_upd_user: string;
     plan_last_upd_date: Date;
 
-    constructor(plan_code, plan_name, plan_desc, plan_class, plan_initial_dis,
-     plan_start_date, plan_end_date, plan_type, plan_last_upd_user, plan_last_upd_date){
+    constructor(plan_code = null, plan_name = null, plan_desc = null, plan_class = null, plan_initial_dis = null,
+     plan_start_date = null, plan_end_date = null, plan_type = null, plan_last_upd_user = null, plan_last_upd_date = null){
         this.plan_code = plan_code;
         this.plan_name = plan_name;
         this.plan_desc = plan_desc;
