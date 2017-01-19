@@ -217,11 +217,14 @@
             <h4 class="modal-title">{{titleDetail}}</h4>
         </modal-header>
         <modal-body>
-                <div class="form-group">
+                <div class="form-group" [ngClass]="{'has-error':!planForm.controls['plan_code'].valid && planForm.controls['plan_code'].touched}">
                     <label class="col-sm-3 control-label no-padding-right" for="plan_code"> プランID </label>
 
                     <div class="col-sm-9 input-group">
                         <input type="text" formControlName="plan_code" [(ngModel)]="modelPlan.plan_code" name="plan_code" id="plan_code" placeholder="" class="col-xs-10 col-sm-10">
+                        <p *ngIf="planForm.controls['plan_code'].hasError('required') && planForm.controls['plan_code'].touched" class="alert alert-danger">You must include a plan code.</p>
+                        <p *ngIf="planForm.controls['plan_code'].hasError('maxlength') && planForm.controls['plan_code'].touched" class="alert alert-danger">Không nhập plan code quá 10 ký tự.</p>
+                        <p *ngIf="planForm.controls['plan_code'].hasError('pattern') && planForm.controls['plan_code'].touched" class="alert alert-danger">Phải nhập ký tự sô.</p>
                     </div>
                 </div>
 
@@ -261,10 +264,12 @@
                     <label class="col-sm-3 control-label no-padding-right" for="plan_start_date"> プラン表示開始日 </label>
 
                     <div class="col-sm-6 input-group">
-                        <input class="col-xs-10 col-sm-12 date-picker" formControlName="plan_start_date" [(ngModel)]="modelPlan.plan_start_date" id="plan_start_date" name="plan_start_date" type="text" data-date-format="dd-mm-yyyy" />
+                        <input class="col-xs-10 col-sm-12 date-picker" formControlName="plan_start_date" [(ngModel)]="modelPlan.plan_start_date" id="plan_start_date" name="plan_start_date" type="text" data-date-format="dd-mm-yyyy" pattern="dd-mm-yyyy"/>
                         <span class="input-group-addon">
                             <i class="fa fa-calendar bigger-110"></i>
                         </span>
+                        <p *ngIf="planForm.controls['plan_start_date'].hasError('date') && planForm.controls['plan_start_date'].touched" class="alert alert-danger">Phải nhập đúng định dạng.</p>
+                        
                     </div>
                 </div>
                 <div class="form-group">

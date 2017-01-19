@@ -61,15 +61,16 @@ export class PlanListComponent implements OnInit {
 
   constructor(private http: Http, private router: Router, private fb:FormBuilder) {
     this.planDetail = [];
+
     this.planForm = this.fb.group({
-            plan_code: ['', [<any>Validators.required, <any>Validators.maxLength(10), this.number]],
-            plan_name : ['', Validators.required],
-            plan_desc : [],
-            plan_class : [],
-            plan_initial_dis : [],
-            plan_start_date : [],
-            plan_end_date : []
-        });
+      'plan_code' : [null, Validators.compose([Validators.required, Validators.maxLength(10), Validators.pattern('[0-9 ]*')])],
+      'plan_name': [null,  Validators.compose([Validators.required, Validators.maxLength(80)])],
+      'plan_desc' : [null, Validators.required],
+      'plan_class' : [false],
+      'plan_initial_dis' : [false],
+      'plan_start_date' : [false],
+      'plan_end_date' : [false]
+    })
     
   }
 

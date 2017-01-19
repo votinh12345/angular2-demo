@@ -5,3 +5,12 @@ form.custom-form div.form-group{
 	display: inline-block;
 	width: 100%;
 }
+p.alert.alert-danger{
+	display: inline-block;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	padding-top: 5px;
+	background-color: transparent;
+	border: none;
+}
